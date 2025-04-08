@@ -1,0 +1,6 @@
+@Gamebox.Server_HostAddress = http://localhost:5104
+
+GET {{Gamebox.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
