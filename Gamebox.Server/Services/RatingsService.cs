@@ -1,5 +1,6 @@
 ﻿using Gamebox.Server.Models;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Gamebox.Server.Services
@@ -16,11 +17,14 @@ namespace Gamebox.Server.Services
             var mongoDatabase = mongoClient.GetDatabase(gameboxDatabaseSettings.Value.DatabaseName);
 
             _ratingsCollection = mongoDatabase.GetCollection<Rating>(
-                gameboxDatabaseSettings.Value.RatingCollectionName);
+                gameboxDatabaseSettings.Value.RatingsCollectionName);
         }
 
-        public async Task<Rating?> GetRatingById(string id) =>
-            await _ratingsCollection.Find(rating => rating.Id == id).FirstOrDefaultAsync();
-
+        public async Task<Rating?> GetRatingById(string id)
+        {
+            var filter = Builders<Rating>.Filter.Eq("_id", ObjectId.Parse(id));
+            return await _ratingsCollection.Find(filter).FirstOrDefaultAsync();
+        }
+ 
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Gamebox.Server.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("ratings")]
     public class RatingsController : ControllerBase
     {
         private readonly RatingsService _ratingsService;
@@ -17,7 +17,7 @@ namespace Gamebox.Server.Controllers
         }
 
 
-        [HttpGet("{id:length(24)}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Rating>> Get(string id)
         {
             var rating = await _ratingsService.GetRatingById(id);
