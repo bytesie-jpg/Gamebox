@@ -1,12 +1,14 @@
 import './App.css';
+import { makeQueryClient } from './shared/query-client';
+import { QueryClientProvider } from '@tanstack/react-query'
 
 function App() {
-
+    const queryClient = makeQueryClient()
     return (
+        <QueryClientProvider client={queryClient}>
         <div>
-            <h1 id="tableLabel">Weather forecast</h1>
-            <p>This component demonstrates fetching data from the server.</p>
         </div>
+        </QueryClientProvider>
     );
 }
 
