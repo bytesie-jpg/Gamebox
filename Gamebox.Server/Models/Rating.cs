@@ -9,7 +9,7 @@ namespace Gamebox.Server.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; }
-        [BsonElement("userId")]
+        [BsonElement("user_id")]
         public string? UserId {  get; set; }
         [BsonElement("difficulty")]
         public int? Difficulty { get; set; }

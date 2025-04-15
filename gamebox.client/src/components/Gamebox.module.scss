@@ -1,0 +1,16 @@
+.mainLayout {
+    display: grid;
+    grid-auto-rows: 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.left {
+    width: 25vw;
+}
+
+.right {
+    width: 30vw;
+}
+
+.middle {
+    width: 45vw;
+}

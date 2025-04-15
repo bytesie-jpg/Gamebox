@@ -16,6 +16,7 @@ builder.Services.Configure<GameboxDatabaseSettings>(
     builder.Configuration.GetSection("GameboxDatabase"));
 
 builder.Services.AddSingleton<RatingsService>();
+builder.Services.AddSingleton<UserService>();
 
 builder.Services.AddOpenApi();
 
