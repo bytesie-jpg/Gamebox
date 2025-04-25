@@ -1,14 +1,13 @@
 import './App.css';
-import { makeQueryClient } from './shared/query-client';
-import { QueryClientProvider } from '@tanstack/react-query'
-
+import { GameboxLayout } from './components/GameboxLayout';
+import { HomePageLayout } from './components/HomePage/HomePageLayout';
 function App() {
-    const queryClient = makeQueryClient()
+    //const queryClient = makeQueryClient()
+    //<GoogleOAuthProvider clientId={'47144089267-gpkju8vdo9lnc6863u2qb1npn6mt458s.apps.googleusercontent.com'}>
     return (
-        <QueryClientProvider client={queryClient}>
-        <div>
-        </div>
-        </QueryClientProvider>
+        <GameboxLayout>
+            <HomePageLayout/>
+        </GameboxLayout>
     );
 }
 

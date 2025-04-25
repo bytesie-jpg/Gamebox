@@ -1,4 +1,4 @@
-export const get = async (url: string, body?: any?) => {
+export const get = async (url: string, body?: any) => {
     return await fetch(url, {
 		method: 'GET',
 		headers: {

@@ -1,0 +1,31 @@
+.mainTitleHeader{
+    font-style: italic;  
+    font-weight: 700;
+    padding-bottom: 5px;
+}
+
+.headerLayout > div {
+    width: 100%;
+}
+
+.iconButtonsGroup {
+    display:flex;
+    gap: 15px;
+}
+
+.searchField {
+    width: 100%;
+    height: 35px;
+}
+
+.searchLayout {
+    position: relative;
+}
+
+.searchIcon {
+    position: absolute;
+}
+
+.searchField{
+
+}
