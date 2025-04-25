@@ -1,7 +1,9 @@
-﻿using Gamebox.Server.Models;
+﻿using Gamebox.Server.DTO;
+using Gamebox.Server.Models;
 using Gamebox.Server.Services;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver;
 
 namespace Gamebox.Server.Controllers
 {
@@ -17,8 +19,24 @@ namespace Gamebox.Server.Controllers
         }
 
 
+        [HttpGet()]
+        public async Task<ActionResult<List<Rating>>> GetRatings([FromQuery(Name="projection")] string ProjectionName)
+        {
+            if(ProjectionName.ToLower().Equals("highestweighted"))
+            {
+                return await _ratingsService.GetHighestRatingsWeighted();
+            } else if (ProjectionName.ToLower().Equals("recent"))
+            {
+                return await _ratingsService.GetRecentRatings();
+            } else
+            {
+                return BadRequest("Projection not sent");
+            }
+        }
+
+
         [HttpGet("{id}")]
-        public async Task<ActionResult<Rating>> Get(string id)
+        public async Task<ActionResult<Rating>> GetRatingById(string id)
         {
             var rating = await _ratingsService.GetRatingById(id);
 
@@ -28,6 +46,21 @@ namespace Gamebox.Server.Controllers
             }
 
             return rating;
+        }
+
+        [HttpPost()]
+        public ActionResult<Rating> CreateRating([FromBody] RatingDTO rating)
+        {
+            try
+            {
+                _ratingsService.CreateRating(rating);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Error creating rating: " + ex);
+            }
+            return Ok();
+
         }
     }
 }

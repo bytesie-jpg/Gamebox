@@ -10,7 +10,7 @@ import { TextField } from '@mui/material';
 export const Header = () => {
     return (
         <div className={styles.headerLayout }>
-            <header className={styles.mainTitleHeader}>GAMEBOX</header>
+            <header className={styles.mainTitleHeader}><h1>GAMEBOX</h1></header>
             <div className={styles.iconButtonsGroup}>
                 <IconButton icon={<HomeOutlined sx={{ width: 35, height: 35 }} />} value={'Home'} onButtonPress={(e) => { console.log(e) }} />
                 <IconButton icon={<StarBorderOutlined sx={{ width: 35, height: 35 }} />} value={'Create Review'} onButtonPress={(e) => { console.log(e) }} />

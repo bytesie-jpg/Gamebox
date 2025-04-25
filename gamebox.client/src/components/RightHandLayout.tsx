@@ -2,8 +2,8 @@ interface LayoutProps {
     main: React.ReactElement;
     side: React.ReactElement;
 }
-import { Header } from '../shared/components/header/Header';
-import { UserProfileDropdown } from '../shared/components/header/UserProfileDropdown';
+import { Header } from '../shared/components/global-header/Header';
+import { UserProfileDropdown } from '../shared/components/global-header/UserProfileDropdown';
 import styles from './Gamebox.module.scss'
 
 export const RightHandLayout = ({ main, side }: LayoutProps) => {
