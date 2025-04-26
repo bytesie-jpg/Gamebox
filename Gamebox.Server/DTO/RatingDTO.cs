@@ -3,6 +3,7 @@
     public class RatingDTO
     {
         public string? UserId { get; set; }
+        public string? GameId { get; set; }
         public int? Difficulty { get; set; }
         public int? Innovation { get; set; }
         public int? Gameplay { get; set; }

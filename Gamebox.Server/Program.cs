@@ -1,4 +1,4 @@
-using Gamebox.Server.Models;
+using Gamebox.Server;
 using Gamebox.Server.Services;
 using Scalar.AspNetCore;
 
@@ -17,6 +17,7 @@ builder.Services.Configure<GameboxDatabaseSettings>(
 
 builder.Services.AddSingleton<RatingsService>();
 builder.Services.AddSingleton<UserService>();
+builder.Services.AddSingleton<GamesService>();
 
 builder.Services.AddOpenApi();
 

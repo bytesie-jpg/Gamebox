@@ -30,7 +30,7 @@ namespace Gamebox.Server.Services
         public async Task<List<Rating>> GetRecentRatings()
         {
             var builder = Builders<Rating>.Sort;
-            var sort = builder.Ascending("creation_date");
+            var sort = builder.Descending("creation_date");
             var pipeline = new EmptyPipelineDefinition<Rating>().Sort(sort).Limit(10);
             return await _ratingsCollection.Aggregate(pipeline).ToListAsync();
         }
@@ -38,9 +38,23 @@ namespace Gamebox.Server.Services
         public async Task<List<Rating>> GetHighestRatingsWeighted()
         {
             var builder = Builders<Rating>.Sort;
-            var sort = builder.Ascending("avg_rating_weighted");
+            var sort = builder.Descending("avg_rating_weighted");
             var pipeline = new EmptyPipelineDefinition<Rating>().Sort(sort).Limit(10);
             return await _ratingsCollection.Aggregate(pipeline).ToListAsync();
+        }
+
+        public async Task<List<Rating>> GetRatingsByGameId(string gameId)
+        {
+            var filter = Builders<Rating>.Filter.Eq("game_id", gameId);
+            // TODO: Add pagination
+            return await _ratingsCollection.Find(filter).Limit(10).ToListAsync();
+        }
+
+        public async Task<List<Rating>> GetRatingsByUserId(string userId)
+        {
+            var filter = Builders<Rating>.Filter.Eq("user_id", userId);
+            // TODO: Add pagination
+            return await _ratingsCollection.Find(filter).Limit(10).ToListAsync();
         }
 
         public async void CreateRating(RatingDTO ratingDTO)
@@ -60,6 +74,7 @@ namespace Gamebox.Server.Services
             var rating = new Rating()
             {
                 UserId = ratingDTO.UserId,
+                GameId = ratingDTO.GameId,
                 Difficulty = ratingDTO.Difficulty,
                 Innovation = ratingDTO.Innovation,
                 Gameplay = ratingDTO.Gameplay,

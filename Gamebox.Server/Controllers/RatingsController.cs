@@ -36,9 +36,35 @@ namespace Gamebox.Server.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Rating>> GetRatingById(string id)
+        public async Task<ActionResult<Rating>> GetRatingByRatingId(string id)
         {
             var rating = await _ratingsService.GetRatingById(id);
+
+            if (rating is null)
+            {
+                return NotFound();
+            }
+
+            return rating;
+        }
+
+        [HttpGet("{id}/user")]
+        public async Task<ActionResult<List<Rating>>> GetRatingsByUserId(string id)
+        {
+            var rating = await _ratingsService.GetRatingsByUserId(id);
+
+            if (rating is null)
+            {
+                return NotFound();
+            }
+
+            return rating;
+        }
+
+        [HttpGet("{id}/game")]
+        public async Task<ActionResult<List<Rating>>> GetRatingsByGameId(string id)
+        {
+            var rating = await _ratingsService.GetRatingsByGameId(id);
 
             if (rating is null)
             {

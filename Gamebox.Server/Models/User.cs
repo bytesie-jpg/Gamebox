@@ -11,11 +11,7 @@ namespace Gamebox.Server.Models
         public string? Id { get; set; }
         [BsonElement("oauth_id")]
         public string? OAuthId { get; set; }
-        [BsonElement("email")]
-        public string? Email { get; set; }
         [BsonElement("username")]
         public string? Username { get; set; }
-        [BsonElement("ratings")]
-        public string[] Ratings { get; set; } = [];
     }
 }
