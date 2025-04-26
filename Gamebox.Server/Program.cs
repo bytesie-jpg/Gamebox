@@ -16,10 +16,22 @@ builder.Services.Configure<GameboxDatabaseSettings>(
     builder.Configuration.GetSection("GameboxDatabase"));
 
 builder.Services.AddSingleton<RatingsService>();
-builder.Services.AddSingleton<UserService>();
+builder.Services.AddSingleton<UsersService>();
 builder.Services.AddSingleton<GamesService>();
 
 builder.Services.AddOpenApi();
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Policy",
+        policy =>
+        {
+            policy.WithOrigins("https://localhost:54307");
+            policy.AllowAnyHeader();
+            policy.AllowAnyMethod();
+        });
+});
 
 var app = builder.Build();
 
@@ -36,6 +48,10 @@ if (app.Environment.IsDevelopment())
 
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseCors();
 
 app.UseAuthorization();
 

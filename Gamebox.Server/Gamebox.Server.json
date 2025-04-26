@@ -517,13 +517,11 @@
             "type": "string",
             "nullable": true
           },
-          "userId": {
-            "type": "string",
-            "nullable": true
+          "user": {
+            "$ref": "#/components/schemas/SimpleUser"
           },
-          "gameId": {
-            "type": "string",
-            "nullable": true
+          "game": {
+            "$ref": "#/components/schemas/SimpleGame"
           },
           "difficulty": {
             "type": "integer",
@@ -629,6 +627,38 @@
             "nullable": true
           }
         }
+      },
+      "SimpleGame": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "nullable": true
+      },
+      "SimpleUser": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "username": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "nullable": true
       },
       "User": {
         "type": "object",

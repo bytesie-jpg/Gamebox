@@ -9,6 +9,8 @@ namespace Gamebox.Server.Services
     public class RatingsService
     {
         private readonly IMongoCollection<Rating> _ratingsCollection;
+        private readonly GamesService _gamesService;
+        private readonly UsersService _usersService;
 
         public RatingsService(
             IOptions<GameboxDatabaseSettings> gameboxDatabaseSettings)
@@ -19,6 +21,8 @@ namespace Gamebox.Server.Services
 
             _ratingsCollection = mongoDatabase.GetCollection<Rating>(
                 gameboxDatabaseSettings.Value.RatingsCollectionName);
+            _gamesService = new GamesService(gameboxDatabaseSettings);
+            _usersService = new UsersService(gameboxDatabaseSettings);
         }
 
         public async Task<Rating?> GetRatingById(string id)
@@ -33,6 +37,7 @@ namespace Gamebox.Server.Services
             var sort = builder.Descending("creation_date");
             var pipeline = new EmptyPipelineDefinition<Rating>().Sort(sort).Limit(10);
             return await _ratingsCollection.Aggregate(pipeline).ToListAsync();
+
         }
 
         public async Task<List<Rating>> GetHighestRatingsWeighted()
@@ -71,10 +76,32 @@ namespace Gamebox.Server.Services
                 ratingDTO.Visuals +
                 ratingDTO.Replayability) / 6.0;
 
-            var rating = new Rating()
+            if(ratingDTO.UserId == null || ratingDTO.GameId == null)
             {
-                UserId = ratingDTO.UserId,
-                GameId = ratingDTO.GameId,
+                throw new Exception("UserID or GameID is null.");
+            }
+            User? userResp = await _usersService.GetUserById(ratingDTO.UserId);
+            Game? gameResp = await _gamesService.GetGameById(ratingDTO.GameId);
+            if (userResp == null || gameResp == null)
+            {
+                throw new Exception("User or Game is null.");
+            }
+            SimpleUser user = new()
+            {
+                Id = userResp.Id,
+                Username = userResp.Username
+            };
+            SimpleGame game = new()
+            {
+                Id = gameResp.Id,
+                Title = gameResp.Title,
+                ImageUrl = gameResp.ImageUrl
+            };
+
+            Rating rating = new()
+            {
+                User = user,
+                Game = game,
                 Difficulty = ratingDTO.Difficulty,
                 Innovation = ratingDTO.Innovation,
                 Gameplay = ratingDTO.Gameplay,

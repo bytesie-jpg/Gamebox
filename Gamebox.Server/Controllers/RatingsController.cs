@@ -1,6 +1,7 @@
 ﻿using Gamebox.Server.DTO;
 using Gamebox.Server.Models;
 using Gamebox.Server.Services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
@@ -8,6 +9,7 @@ using MongoDB.Driver;
 namespace Gamebox.Server.Controllers
 {
     [ApiController]
+    [EnableCors("Policy")]
     [Route("ratings")]
     public class RatingsController : ControllerBase
     {

@@ -1,11 +1,13 @@
 ﻿using Gamebox.Server.DTO;
 using Gamebox.Server.Models;
 using Gamebox.Server.Services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gamebox.Server.Controllers
 {
     [ApiController]
+    [EnableCors("Policy")]
     [Route("games")]
     public class GamesController : ControllerBase
     {

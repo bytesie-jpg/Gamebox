@@ -6,11 +6,11 @@ using MongoDB.Driver;
 
 namespace Gamebox.Server.Services
 {
-    public class UserService
+    public class UsersService
     {
         private readonly IMongoCollection<User> _usersCollection;
 
-        public UserService(
+        public UsersService(
             IOptions<GameboxDatabaseSettings> gameboxDatabaseSettings)
         {
             var mongoClient = new MongoClient(gameboxDatabaseSettings.Value.ConnectionString);
