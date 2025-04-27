@@ -1,0 +1,36 @@
+.ratingContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.imageAndStar {
+    position: relative;
+    font-size: 18px;
+    height: 200px;
+}
+
+.ratingNumberContainer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+}
+
+.ratingNumber {
+    height: 20px;
+    width: 20px;
+    font-weight: 500;
+}
+
+.ratingStar {
+    display: flex;
+    align-items: center;
+}
+
+.title {
+    font-size: 15px;
+    font-style: italic;
+    font-weight: 700;
+}

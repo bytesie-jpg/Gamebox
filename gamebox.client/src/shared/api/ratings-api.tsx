@@ -10,3 +10,13 @@ export function getRecentlyRated(): Promise<Array<Rating>> {
         } else return [];
     })
 }
+
+export function getHighestRated(): Promise<Array<Rating>> {
+    return get(`ratings?projection=highestweighted`).then((resp: Response) => {
+        if (resp.ok) {
+            return resp.json().then((json) => {
+                return json as Rating[];
+            })
+        } else return [];
+    })
+}
