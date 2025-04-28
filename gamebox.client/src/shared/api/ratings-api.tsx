@@ -1,5 +1,22 @@
 import { get } from "../fetch-wrapper";
+import { Rating } from "../types/rating";
 
-export function getRecentlyRated() {
-    return get(`https://localhost:7281/ratings?projection=recent`)
+export function getRecentlyRated(): Promise<Array<Rating>> {
+    return get(`ratings?projection=recent`).then((resp: Response) => {
+        if (resp.ok) {
+            return resp.json().then((json) => {
+                return json as Rating[];
+            }) 
+        } else return [];
+    })
+}
+
+export function getHighestRated(): Promise<Array<Rating>> {
+    return get(`ratings?projection=highestweighted`).then((resp: Response) => {
+        if (resp.ok) {
+            return resp.json().then((json) => {
+                return json as Rating[];
+            })
+        } else return [];
+    })
 }

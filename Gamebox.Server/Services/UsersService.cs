@@ -1,15 +1,16 @@
-﻿using Gamebox.Server.Models;
+﻿using Gamebox.Server.DTO;
+using Gamebox.Server.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Gamebox.Server.Services
 {
-    public class UserService
+    public class UsersService
     {
         private readonly IMongoCollection<User> _usersCollection;
 
-        public UserService(
+        public UsersService(
             IOptions<GameboxDatabaseSettings> gameboxDatabaseSettings)
         {
             var mongoClient = new MongoClient(gameboxDatabaseSettings.Value.ConnectionString);
@@ -22,7 +23,7 @@ namespace Gamebox.Server.Services
 
         public async Task<User?> Authenticate(User user)
         {
-            User existing_user = await _usersCollection.Find(Builders<User>.Filter.Eq("email", user.Email)).FirstAsync();
+            User existing_user = await _usersCollection.Find(Builders<User>.Filter.Eq("oauth_id", user.OAuthId)).FirstAsync();
             if (existing_user == null)
             {
                 try
@@ -37,6 +38,24 @@ namespace Gamebox.Server.Services
                 }
 
             } else return existing_user;
+        }
+
+        public async Task<User?> GetUserById(string id)
+        {
+            var filter = Builders<User>.Filter.Eq("_id", ObjectId.Parse(id));
+            return await _usersCollection.Find(filter).FirstOrDefaultAsync();
+        }
+
+
+        public async void CreateUser(UserDTO userDTO)
+        {
+            var user = new User()
+            {
+                OAuthId = userDTO.OAuthId,
+                Username = userDTO.Username
+            };
+
+            await _usersCollection.InsertOneAsync(user);
         }
     }
 }

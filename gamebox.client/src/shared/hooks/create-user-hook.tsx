@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import { User } from '../types/user'
+import { User } from '../types/current-user'
 import { createUser } from '../api/user-api'
 
 export function useCreateUserHook() {

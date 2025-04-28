@@ -1,6 +1,5 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
-using System.Text.Json.Serialization;
 
 namespace Gamebox.Server.Models
 {
@@ -10,9 +9,12 @@ namespace Gamebox.Server.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
+        [BsonElement("_id")]
         public string? Id { get; init; }
-        [BsonElement("user_id")]
-        public string? UserId {  get; init; }
+        [BsonElement("user")]
+        public SimpleUser? User {  get; init; }
+        [BsonElement("game")]
+        public SimpleGame? Game { get; init; }
         [BsonElement("difficulty")]
         public int? Difficulty { get; init; }
         [BsonElement("innovation")]
