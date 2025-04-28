@@ -7,7 +7,7 @@ interface SectionHeaderProps {
 
 export const SectionHeader = ({ title }: SectionHeaderProps) => {
     return (
-        <div>
+        <div className={styles.sectionContainer} >
             <h2 className={styles.title}>{title.toUpperCase()}</h2>
             <Divider />
         </div>

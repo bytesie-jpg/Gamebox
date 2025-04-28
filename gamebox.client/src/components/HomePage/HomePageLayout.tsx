@@ -52,7 +52,12 @@ export const HomePageLayout = () => {
                     <GameReviewGallery ratings={highestReviewed} />
                 </div>
             }
-            side={<div>side test</div>}
+            side=
+            {<div>
+                <SectionHeader title={'Played Games'} />
+
+                <SectionHeader title={'Friend Activity'} />
+            </div>}
         />
     )
 
